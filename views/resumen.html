@@ -32,7 +32,36 @@
       %for i in range(n):
         <tr>
           <td> {{ participantes[i] }}</td>
-          <td>Dados:  {{ dados[i] }} </td>
+          <td>
+                <table>
+                  <tr>
+                    %if dado1 in dados[i]:
+                      <td><img src="/files/1.jpg" width="50" height="50"></td>
+                    %end
+                    
+                    %if dado2 in dados[i]:
+                      <td><img src="/files/2.jpg" width="50" height="50"></td>
+                    %end
+
+                    %if dado3 in dados[i]:
+                      <td><img src="/files/3.jpg" width="50" height="50"></td>
+                    %end
+
+                    %if dado4 in dados[i]:
+                      <td><img src="/files/4.jpg" width="50" height="50"></td>
+                    %end
+
+                    %if dado5 in dados[i]:
+                      <td><img src="/files/5.jpg" width="50" height="50"></td>
+                    %end
+
+                    %if dado6 in dados[i]:
+                      <td><img src="/files/6.jpg" width="50" height="50"></td>
+                    %end
+                  </tr>
+                </table>
+
+          </td>
           <td>Puntaje Ronda: {{ puntajeRonda[i] }} </td>
           <td>Puntaje General: {{ puntajeGeneral[i] }}</td>
           

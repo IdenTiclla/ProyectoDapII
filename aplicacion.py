@@ -112,11 +112,23 @@ def ajax():
 #agregado
 @route('/resumen')
 def res():
+
     participantes = p["nombre"]
     puntajeRonda = p['puntajeRonda']
     puntajeGeneral = p["puntajeGeneral"] 
     dados = p["dados"]
-    return template('resumen.html',n=len(p["nombre"]),participantes=participantes,dados=dados,puntajeRonda=puntajeRonda,puntajeGeneral=puntajeGeneral)
+
+    ##
+    dado1 = 1
+    dado2 = 2
+    dado3 = 3
+    dado4 = 4
+    dado5 = 5
+    dado6 = 6
+
+
+    ##
+    return template('resumen.html',dado1=dado1,dado2=dado2,dado3=dado3,dado4=dado4,dado5=dado5,dado6=dado6,n=len(p["nombre"]),participantes=participantes,dados=dados,puntajeRonda=puntajeRonda,puntajeGeneral=puntajeGeneral)
     
 
 #agregado
