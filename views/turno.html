@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>turnos</title>
+  <script type="text/javascript">   
+    function inicio(){
+        setInterval(function(){
+            loadXMLDoc();
+        },500);
+    }
+
+    function loadXMLDoc(){
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function(){
+            if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                document.getElementById("responseDiv").innerHTML = xmlhttp.responseText;                
+            }
+        }
+    xmlhttp.open("POST", "/ajax", true);
+    xmlhttp.send();
+    }   
+</script>
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+
+<body onload="inicio();">
+  
+  <h2>{{part}}</h2>
+  <br>
+  <x id="responseDiv"></x>
+
+</body>
+
+</html>

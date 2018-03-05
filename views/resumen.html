@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>resumen</title>
+  <script type="text/javascript">   
+    function inicio(){
+        setInterval(function(){
+            loadXMLDoc();
+        },500);
+    }
+
+    function loadXMLDoc(){
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function(){
+            if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                document.getElementById("responseDiv").innerHTML = xmlhttp.responseText;                
+            }
+        }
+    xmlhttp.open("POST", "/resumen", true);
+    xmlhttp.send();
+    }   
+</script>
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+
+<body onload="inicio();">
+  
+  <h2>Resumen</h2>
+
+  <table>
+      %for i in range(n):
+        <tr>
+          <td> {{ participantes[i] }}</td>
+          <td>Dados:  {{ dados[i] }} </td>
+          <td>Puntaje Ronda: {{ puntajeRonda[i] }} </td>
+          <td>Puntaje General: {{ puntajeGeneral[i] }}</td>
+          
+        </tr>
+      %end
+    
+
+  </table>
+
+
+  <br>
+  <x id="responseDiv"></x>
+
+</body>
+
+</html>

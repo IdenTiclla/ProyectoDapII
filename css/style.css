@@ -1,0 +1,44 @@
+body{
+	background-color: #432F75;
+}
+h1{
+	color: white;
+}
+h2{
+	color: brown;
+}
+#menu{
+
+}
+
+#menu ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#menu ul li{
+	display: inline-block;
+
+}
+#menu ul li a{
+	color: white;
+	display: block;
+	padding: 10px;
+	text-decoration: none;
+}
+
+#menu ul li a:hover{
+	background-color: #42B881;
+}
+
+
+form{
+	background-color: white;
+	border-radius: 5px;
+	color: #999;
+	padding: 10px;
+	margin: 0 auto;
+	width: 300px;
+
+}
