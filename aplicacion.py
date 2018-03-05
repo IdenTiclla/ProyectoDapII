@@ -1,19 +1,14 @@
 from bottle import get, post, request, route, run, redirect, template, response,static_file
 import random
 
-p = {'sesion':[],'nombre':[],'puntajeGeneral':[],"puntajeRonda":[],"dados":[]}
+p = {'sesion':[],'nombre':[],'puntajeGeneral':[],"puntajeRonda":[],"dados":[],"dadosRepetidos":[]}
 
 dados = []
 ptj = [0]
-
 dado= [0]
 turno = [1]
-
 posts = []
-
 insc = [False]
-
-
 
 ##
 @route("/static/<filename>")
@@ -27,14 +22,6 @@ def server_filees(filename):
 @route("/dados")
 def dados():
     return template("dados.html")
-
-
-
-##
-
-
-
-
 
 
 @route("/")
@@ -72,6 +59,7 @@ def inscribir():
                 p["dados"].append([])
                 p['puntajeGeneral'].append(0)
                 p['puntajeRonda'].append(0)
+                p['dadosRepetidos'].append(0)
                 setSesion(s)
                 print(p)
 
@@ -117,7 +105,7 @@ def res():
     puntajeRonda = p['puntajeRonda']
     puntajeGeneral = p["puntajeGeneral"] 
     dados = p["dados"]
-
+    dadosRepetidos = p["dadosRepetidos"]
     ##
     dado1 = 1
     dado2 = 2
@@ -128,7 +116,7 @@ def res():
 
 
     ##
-    return template('resumen.html',dado1=dado1,dado2=dado2,dado3=dado3,dado4=dado4,dado5=dado5,dado6=dado6,n=len(p["nombre"]),participantes=participantes,dados=dados,puntajeRonda=puntajeRonda,puntajeGeneral=puntajeGeneral)
+    return template('resumen.html',dado1=dado1,dado2=dado2,dado3=dado3,dado4=dado4,dado5=dado5,dado6=dado6,n=len(p["nombre"]),participantes=participantes,dados=dados,puntajeRonda=puntajeRonda,puntajeGeneral=puntajeGeneral,dadosRepetidos=dadosRepetidos)
     
 
 #agregado
@@ -136,16 +124,7 @@ def res():
 def resp():        
     return redirect('/resumen')
 
-
-
-
-
-
-
-
-
-
-    
+ 
 @route('/postear',["GET","POST"])
 def postear():
     if request.method == "GET":
@@ -218,18 +197,33 @@ def opcionuno():
                 p["puntajeRonda"][pos] += dado[0]
                 return redirect("/postear")
             elif dado[0] in p["dados"][pos]:
-                turno[0] += 1
+                #
+                p["dados"][pos] = [] 
+                p["puntajeRonda"][pos] = 0
+                
+                p["dadosRepetidos"][pos] += 1
+                turno[0] +=1
+                #
+                if p["dadosRepetidos"][pos] >=3:
+                    turno[0] += 1
+                    p["sesion"].pop(pos)
+                    p["nombre"].pop(pos)
+                    p["puntajeGeneral"].pop(pos)
+                    p["puntajeRonda"].pop(pos)
+                    p["dados"].pop(pos)
+                    p["dadosRepetidos"].pop(pos)
+                    if not turno[0] < len(p['sesion']):
+                        turno[0] = 0
+                    return template("tresVecesRepetido.html")
                 if not turno[0] < len(p['sesion']):
                     turno[0] = 0
-                p["dados"][pos] = [] 
-                p["puntajeRonda"][pos] = 0   
+                #p["dados"][pos] = [] 
+                #p["puntajeRonda"][pos] = 0   
                 return template("dadorepetido.html",dado = str(dado[0]))
 
         if len(p["dados"][pos]) >=6:
             return template("ganaste.html")
             
-
-
 # manejo de sesiones.
 def getSesion():
     cookie = request.get_cookie("sesion")
@@ -239,10 +233,6 @@ def getSesion():
 
 def setSesion(valor):
     response.set_cookie("sesion", str(valor))    
-
-
-
-
 
 if __name__ == '__main__':
     run(port = 8080,debug=True,reloader=True, server='waitress')

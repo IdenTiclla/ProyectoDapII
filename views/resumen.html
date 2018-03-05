@@ -34,6 +34,7 @@
           <td> {{ participantes[i] }}</td>
           <td>
                 <table>
+                  <td>Dados:</td>
                   <tr>
                     %if dado1 in dados[i]:
                       <td><img src="/files/1.jpg" width="50" height="50"></td>
@@ -64,6 +65,7 @@
           </td>
           <td>Puntaje Ronda: {{ puntajeRonda[i] }} </td>
           <td>Puntaje General: {{ puntajeGeneral[i] }}</td>
+          <td>Cantidad de dados Repetidos: {{dadosRepetidos[i] }}</td>
           
         </tr>
       %end
